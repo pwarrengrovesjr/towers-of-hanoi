@@ -1,16 +1,47 @@
-var board = [[5, 4, 3, 2, 1], [], []];
+var towersOfHanoi = {
+  board: [
+    [5, 4, 3, 2, 1],
+    [],
+    []
+  ],
+};
 
-console.log(`Welcome to Towers of Hanoi! \n\n--- ${board[0].join(" ")}\n--- ${board[1].join(" ")}\n--- ${board[2].join(" ")}`);
+var board = towersOfHanoi.board;
+
+var showBoard = function (boardArray) {
+  boardArray.map((x) => console.log(`--- ${x.join(" ")}`))
+};
 
 var moveDisc = function (from, to) {
   var fromPeg = board[from - 1];
   var toPeg = board[to - 1];
-
-  if (toPeg.length === 0) {
+  
+  if (toPeg.length == 0) {
     toPeg.push(fromPeg.pop());
+    console.log('That move was successful, board is now:');
   } else if (fromPeg[fromPeg.length - 1] < toPeg[toPeg.length - 1]) {
     toPeg.push(fromPeg.pop());
-  } else {console.log("Invalid move! Can't place a larger disk on top of a smaller disc.")}
-
-  return console.log(`--- ${board[0].join(" ")}\n--- ${board[1].join(" ")}\n--- ${board[2].join(" ")}`);;
+    console.log('That move was successful, board is now:');
+  } else {moveconsole.log("Invalid move! Can't place a larger disk on top of a smaller disc.")}
+  
+  board.map((x) => console.log(`--- ${x.join(" ")}`));
+  if (to !== 1) {
+    checkWinner(toPeg);
+  }
 };
+
+var checkWinner = function (peg) {
+  const winner = '5 4 3 2 1';
+  
+  if (peg.join(" ") === winner) {
+    console.log('You won! Play again below.');
+    board = [
+    [5, 4, 3, 2, 1],
+    [],
+    []
+  ];
+    showBoard(board);
+  }
+};
+
+showBoard(board);
